@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hurutungo</title>
   <style>
+    /* Global Styles */
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -59,7 +60,7 @@
     .hero h1 {
       font-size: 3rem;
       margin-bottom: 1rem;
-      color: #6366f1;
+      color: #f9fafb;
       text-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
     }
 
@@ -91,7 +92,16 @@
       color: white;
     }
 
-    /* Companies */
+    /* Make the entire card clickable */
+    .company-link {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      max-width: 400px;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+
+    /* Companies Section */
     .companies {
       padding: 4rem 2rem;
       text-align: center;
@@ -126,11 +136,20 @@
       margin-bottom: 1rem;
     }
 
-    /* Contact */
+    /* Contact Section */
     .contact {
       padding: 4rem 2rem;
       background: #111827;
       text-align: center;
+    }
+
+    /* Container for multiple companies */
+    .companies-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
     }
 
     .contact h2 {
@@ -169,7 +188,6 @@
       /* Indigo outline */
       color: #6366f1;
       font-weight: bold;
-      font-weight: bold;
       cursor: pointer;
     }
 
@@ -206,10 +224,14 @@
 
   <section class="companies" id="companies">
     <h2>Our Companies</h2>
+    <div class="companies-list">
+    <a href="https://www.wallyswickedgood.com" target="_blank" rel="noopener noreferrer" class="company-link">
     <div class="company">
       <img src="icecream.jpg" alt="Ice Cream Shop">
-      <h3>Ice Cream Shop</h3>
-      <p>Crafting artisanal ice cream with fresh, local ingredients.</p>
+      <h3>Wally's Wicked Good Ice Cream</h3>
+      <p>A family friendly and cozy ice cream shop in New England</p>
+    </div>
+    </a>
     </div>
   </section>
 
