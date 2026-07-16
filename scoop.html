@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoop — Hurutungo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =====================================================================
+           APP THEME — edit these variables to re-skin this page for a new app.
+           To add another app, duplicate this file and only touch this block
+           plus the text/links in the body below.
+           ===================================================================== */
+        :root {
+            --app-bg: #fbe7e0;          /* page/panel background */
+            --app-accent: #7a1f2e;      /* app name, store buttons */
+            --app-accent-dark: #5f1722; /* store button hover */
+            --app-stripe-1: #f2a181;    /* icon + screenshot stripe (dark) */
+            --app-stripe-2: #fbddcd;    /* icon + screenshot stripe (light) */
+            --app-text: #3a2a26;        /* app name text */
+            --app-text-muted: #8c7b72;  /* description text */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--app-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-link {
+            padding: 1.5rem 6% 0;
+            font-size: 0.85rem;
+            color: var(--app-text-muted);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--app-text);
+        }
+
+        .panel {
+            flex: 1;
+            margin: 1.5rem 4% 3rem;
+            background: var(--app-bg);
+            border-radius: 28px;
+            padding: 4rem 6%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .app-info {
+            max-width: 420px;
+        }
+
+        .app-heading {
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .app-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--app-stripe-2),
+                var(--app-stripe-2) 8px,
+                var(--app-stripe-1) 8px,
+                var(--app-stripe-1) 16px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .app-icon span {
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: rgba(58, 42, 38, 0.55);
+        }
+
+        .app-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            color: var(--app-text);
+        }
+
+        .app-description {
+            font-size: 1.02rem;
+            line-height: 1.65;
+            color: var(--app-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .store-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-width: 240px;
+        }
+
+        .store-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--app-accent);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .store-btn:hover {
+            background: var(--app-accent-dark);
+        }
+
+        .store-btn::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #fff;
+            opacity: 0.8;
+        }
+
+        /* Phone mockup */
+        .phone-wrap {
+            display: flex;
+            justify-content: center;
+        }
+
+        .phone {
+            width: 260px;
+            height: 540px;
+            background: #111;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .phone-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .status-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 1.2rem 0.3rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #111;
+        }
+
+        .dynamic-island {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 22px;
+            background: #111;
+            border-radius: 12px;
+        }
+
+        .status-icons {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-btn {
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #111;
+        }
+
+        .nav-title {
+            padding: 0 1.1rem 0.6rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #111;
+        }
+
+        .screenshot-area {
+            flex: 1;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--app-stripe-2),
+                var(--app-stripe-2) 10px,
+                var(--app-stripe-1) 10px,
+                var(--app-stripe-1) 20px
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screenshot-label {
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-align: center;
+            line-height: 1.5;
+            color: rgba(58, 42, 38, 0.5);
+        }
+
+        @media (max-width: 760px) {
+            .panel {
+                grid-template-columns: 1fr;
+                text-align: left;
+                padding: 3rem 8%;
+            }
+
+            .phone-wrap {
+                order: -1;
+            }
+
+            .phone {
+                width: 220px;
+                height: 460px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html#apps" class="back-link">&larr; hurutungo</a>
+
+    <div class="panel">
+        <div class="app-info">
+            <div class="app-heading">
+                <div class="app-icon"><span>ICON</span></div>
+                <div class="app-name">Scoop</div>
+            </div>
+            <p class="app-description">Placeholder description — a couple of sentences on what the app does, who it's for, and the one thing that makes it worth downloading.</p>
+            <div class="store-links">
+                <a href="#" class="store-btn">App Store</a>
+                <a href="#" class="store-btn">Google Play</a>
+            </div>
+        </div>
+
+        <div class="phone-wrap">
+            <div class="phone">
+                <div class="phone-screen">
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <div class="dynamic-island"></div>
+                        <div class="status-icons">
+                            <svg width="16" height="10" viewBox="0 0 16 10" fill="none"><rect x="0" y="6" width="2.5" height="4" rx="0.5" fill="#111"/><rect x="4" y="4" width="2.5" height="6" rx="0.5" fill="#111"/><rect x="8" y="2" width="2.5" height="8" rx="0.5" fill="#111"/><rect x="12" y="0" width="2.5" height="10" rx="0.5" fill="#111"/></svg>
+                            <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><path d="M7 9.5C7.4 9.5 7.75 9.15 7.75 8.7C7.75 8.25 7.4 7.9 7 7.9C6.6 7.9 6.25 8.25 6.25 8.7C6.25 9.15 6.6 9.5 7 9.5Z" fill="#111"/><path d="M4.2 6.8C5.3 5.8 8.7 5.8 9.8 6.8" stroke="#111" stroke-width="1.1" stroke-linecap="round"/><path d="M2 4.4C4.6 2.1 9.4 2.1 12 4.4" stroke="#111" stroke-width="1.1" stroke-linecap="round"/></svg>
+                            <svg width="24" height="11" viewBox="0 0 24 11" fill="none"><rect x="0.5" y="0.5" width="20" height="10" rx="2.5" stroke="#111"/><rect x="2" y="2" width="17" height="7" rx="1.2" fill="#111"/><rect x="21.5" y="3.5" width="1.5" height="4" rx="0.7" fill="#111"/></svg>
+                        </div>
+                    </div>
+                    <div class="nav-bar">
+                        <div class="nav-btn">
+                            <svg width="10" height="16" viewBox="0 0 10 16" fill="none"><path d="M9 1L1.5 8L9 15" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <div class="nav-btn">
+                            <svg width="18" height="4" viewBox="0 0 18 4" fill="none"><circle cx="2" cy="2" r="2" fill="#111"/><circle cx="9" cy="2" r="2" fill="#111"/><circle cx="16" cy="2" r="2" fill="#111"/></svg>
+                        </div>
+                    </div>
+                    <div class="nav-title">Scoop</div>
+                    <div class="screenshot-area">
+                        <div class="screenshot-label">APP<br>SCREENSHOT</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

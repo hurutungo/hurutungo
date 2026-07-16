@@ -4,341 +4,486 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hurutungo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --cream: #f7f1e8;
+            --cream-light: #fdfbf7;
+            --ink: #201c18;
+            --muted: #756e63;
+            --pink: #d6427a;
+            --pink-dark: #c22d67;
+            --teal: #2f7a68;
+            --border: #e6ddce;
+            --card-bg: #ffffff;
+        }
+
         body {
-            font-family: 'Georgia', serif;
-            background: linear-gradient(135deg, #0a1628 0%, #000000 100%);
-            color: #f9fafb;
-            overflow-x: hidden;
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
             line-height: 1.6;
         }
-        
+
+        h1, h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .eyebrow {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: 1rem;
+        }
+
         header {
-            padding: 2rem 5%;
+            padding: 1.5rem 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: fixed;
-            width: 100%;
-            backdrop-filter: blur(10px);
-            background: rgba(10, 22, 40, 0.85);
-            z-index: 1000;
-            border-bottom: 1px solid rgba(100, 149, 237, 0.15);
+            border-bottom: 1px solid var(--border);
         }
-        
+
         .logo {
-            font-size: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 3px;
-            color: #6495ed;
-        }
-        
-        nav {
-            display: flex;
-            gap: 2.5rem;
-        }
-        
-        nav a {
-            color: #e0e0e0;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        
-        nav a:after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #6495ed;
-            transition: width 0.3s ease;
-        }
-        
-        nav a:hover {
-            color: #6495ed;
-        }
-        
-        nav a:hover:after {
-            width: 100%;
-        }
-        
-        .hero {
-            min-height: 100vh;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 0 5%;
-            position: relative;
-            text-align: center;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            animation: fadeInUp 1s ease;
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            line-height: 1.2;
-            margin-bottom: 2rem;
-            letter-spacing: 2px;
-            color: #ffffff;
-        }
-        
-        .hero p {
-            font-size: 1.3rem;
-            color: #8bb4f7;
-            font-style: italic;
-            margin-bottom: 0;
-            font-weight: 300;
-        }
-        
-        .companies {
-            padding: 8rem 5%;
-            background: rgba(30, 40, 60, 0.15);
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 4rem;
-            letter-spacing: 2px;
-            color: #ffffff;
-        }
-        
-        .decorative-line {
-            width: 60px;
-            height: 1px;
-            background: #6495ed;
-            margin: 0 auto 4rem;
-        }
-        
-        .companies-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-        }
-        
-        .company-link {
+            gap: 0.5rem;
             text-decoration: none;
-            color: inherit;
-            display: block;
-            max-width: 500px;
+            color: var(--ink);
         }
-        
-        .company {
-            padding: 2.5rem;
-            background: rgba(20, 30, 48, 0.6);
-            border: 1px solid rgba(100, 149, 237, 0.25);
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-            cursor: pointer;
+
+        .logo::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pink);
+            display: inline-block;
         }
-        
-        .company:hover {
-            transform: translateY(-10px);
-            border-color: rgba(100, 149, 237, 0.6);
-            box-shadow: 0 20px 40px rgba(100, 149, 237, 0.15);
+
+        nav {
+            display: flex;
+            gap: 2.25rem;
         }
-        
-        .company img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
+
+        nav a {
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--muted);
+            transition: color 0.2s ease;
+        }
+
+        nav a:first-child {
+            color: var(--ink);
+        }
+
+        nav a:hover {
+            color: var(--ink);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 1.9rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--pink);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--pink-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border-color: var(--ink);
+            color: var(--ink);
+        }
+
+        .btn-outline:hover {
+            background: var(--ink);
+            color: #fff;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 6.5rem 6% 3rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .hero-content .eyebrow {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+            line-height: 1.25;
             margin-bottom: 1.5rem;
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
         }
-        
-        .company:hover img {
+
+        h1 em {
+            color: var(--pink);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: var(--muted);
+            max-width: 540px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Story */
+        .story {
+            padding: 2.5rem 6% 6rem;
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+
+        .story h2 {
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            margin-bottom: 1.25rem;
+            line-height: 1.3;
+        }
+
+        .story p {
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-size: 0.98rem;
+        }
+
+        .story-images {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .story-images img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.9s ease;
+        }
+
+        .story-images img.active {
             opacity: 1;
         }
-        
-        .company h3 {
-            font-size: 1.8rem;
-            font-weight: 300;
-            margin-bottom: 1rem;
-            color: #8bb4f7;
-            letter-spacing: 1px;
-        }
-        
-        .company p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #c8d6e5;
-        }
-        
-        .contact {
-            padding: 8rem 5%;
+
+        /* Apps */
+        .apps {
+            padding: 6rem 6%;
+            background: var(--cream-light);
             text-align: center;
-            background: rgba(10, 15, 25, 0.5);
         }
-        
-        .contact h2 {
-            font-size: 2.5rem;
-            font-weight: 300;
+
+        .apps .eyebrow {
+            text-align: center;
+        }
+
+        .apps h2 {
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            margin-bottom: 3.5rem;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1080px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.75rem;
+        }
+
+        .app-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            margin-bottom: 1.25rem;
+        }
+
+        .app-icon.pink {
+            background: linear-gradient(135deg, #f3c9d8, var(--pink));
+        }
+
+        .app-icon.muted {
+            background: var(--border);
+        }
+
+        .app-card h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.6rem;
+        }
+
+        .app-card p {
+            font-size: 0.9rem;
+            color: var(--muted);
             margin-bottom: 1rem;
-            letter-spacing: 2px;
-            color: #ffffff;
         }
-        
-        .contact form {
-            max-width: 600px;
-            margin: 3rem auto 0;
+
+        .app-card.disabled {
+            opacity: 0.55;
+        }
+
+        .app-card a {
+            color: var(--pink);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .app-card.empty {
+            border-style: dashed;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--muted);
         }
-        
+
+        .app-card.empty .plus {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* Contact */
+        .contact {
+            padding: 6rem 6%;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 4rem;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .contact h2 {
+            font-size: clamp(1.7rem, 3vw, 2.3rem);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info p {
+            color: var(--muted);
+            font-size: 0.98rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         .contact input,
         .contact textarea {
-            padding: 1rem;
-            background: rgba(20, 30, 48, 0.6);
-            border: 1px solid rgba(100, 149, 237, 0.25);
-            color: #f9fafb;
-            font-size: 1rem;
-            font-family: 'Georgia', serif;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            padding: 0.95rem 1.1rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--ink);
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s ease;
         }
-        
+
         .contact input::placeholder,
         .contact textarea::placeholder {
-            color: #8bb4f7;
-            opacity: 0.6;
+            color: #a89f92;
         }
-        
+
         .contact input:focus,
         .contact textarea:focus {
             outline: none;
-            border-color: rgba(100, 149, 237, 0.6);
-            box-shadow: 0 0 20px rgba(100, 149, 237, 0.15);
+            border-color: var(--pink);
         }
-        
+
         .contact button {
-            padding: 1rem 3rem;
-            background: transparent;
-            border: 1px solid #6495ed;
-            color: #6495ed;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
+            padding: 1rem;
+            background: var(--pink);
+            border: none;
+            border-radius: 999px;
+            color: #fff;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            align-self: center;
+            transition: background 0.2s ease;
         }
-        
-        .contact button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: #6495ed;
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-        
+
         .contact button:hover {
-            color: #0a1628;
+            background: var(--pink-dark);
         }
-        
-        .contact button:hover:before {
-            left: 0;
-        }
-        
+
         footer {
-            padding: 2rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(100, 149, 237, 0.15);
-            font-size: 0.9rem;
-            color: #6b7c93;
+            padding: 1.75rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            font-size: 0.85rem;
+            color: var(--muted);
         }
-        
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
+
+        footer a {
+            color: var(--muted);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--ink);
+        }
+
+        @media (max-width: 860px) {
             nav {
-                gap: 1.5rem;
+                gap: 1.25rem;
             }
-            
-            .company {
-                padding: 2rem;
+
+            .story,
+            .contact {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
             }
-            
-            .section-title,
-            .contact h2 {
-                font-size: 2rem;
+
+            .story-images {
+                order: -1;
+            }
+
+            .apps-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">HURUTUNGO</div>
+        <a href="#home" class="logo">hurutungo</a>
         <nav>
             <a href="#home">Home</a>
-            <a href="#companies">Companies</a>
+            <a href="#about">About</a>
+            <a href="#apps">Apps</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
-    
+
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>Welcome to Hurutungo</h1>
-            <p>Building creative ventures that bring joy to our community — starting with our delicious ice cream shop.</p>
+            <span class="eyebrow">Family-Owned Creative Ventures</span>
+            <h1>Building things that bring <em>joy</em> to our community</h1>
+            <p>Starting with Wally's Wicked Good Ice Cream, and now bringing the same warmth to a growing family of mobile apps.</p>
+            <div class="hero-actions">
+                <a href="https://www.wallyswickedgood.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Visit Wally's Ice Cream</a>
+                <a href="#apps" class="btn btn-outline">See Our Apps</a>
+            </div>
         </div>
     </section>
-    
-    <section class="companies" id="companies">
-        <h2 class="section-title">Our Companies</h2>
-        <div class="decorative-line"></div>
-        <div class="companies-list">
-            <a href="https://www.wallyswickedgood.com" target="_blank" rel="noopener noreferrer" class="company-link">
-                <div class="company">
-                    <img src="icecream.jpg" alt="Ice Cream Shop">
-                    <h3>Wally's Wicked Good Ice Cream</h3>
-                    <p>A family friendly and cozy ice cream shop in New England</p>
-                </div>
-            </a>
+
+    <section class="story" id="about">
+        <div class="story-text">
+            <span class="eyebrow">Our Story</span>
+            <h2>A family scooping up new ideas</h2>
+            <p>Hurutungo is the small family company behind Wally's Wicked Good Ice Cream &amp; Treats — a cozy neighborhood shop in New England known for playful flavors and hand-crafted treats.</p>
+            <p>We're now channeling that same spirit into mobile apps — each one its own little venture, with its own personality.</p>
+        </div>
+        <div class="story-images">
+            <img src="story-1.jpg" class="active" alt="Ice cream cone with sprinkles at Wally's Wicked Good Ice Cream">
+            <img src="story-2.jpg" alt="Cotton candy sundae at Wally's Wicked Good Ice Cream">
+            <img src="story-3.jpg" alt="Ice cream cone at Wally's Wicked Good Ice Cream">
         </div>
     </section>
-    
+
+    <section class="apps" id="apps">
+        <span class="eyebrow">Our Apps</span>
+        <h2>A growing family of mobile apps</h2>
+        <div class="apps-grid">
+            <div class="app-card">
+                <div class="app-icon pink"></div>
+                <h3>Anime Fillers</h3>
+                <p>Details coming soon — each app gets its own page at hurutungo.com/appname</p>
+                <a href="scoop.html">Learn more &rarr;</a>
+            </div>
+            <!-- <div class="app-card disabled">
+                <div class="app-icon muted"></div>
+                <h3>Next app</h3>
+                <p>In the works.</p>
+            </div> -->
+            <div class="app-card empty">
+                <div class="plus">+</div>
+                <p>More apps coming soon.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="contact" id="contact">
-        <h2>Contact Us</h2>
-        <div class="decorative-line"></div>
+        <div class="contact-info">
+            <span class="eyebrow">Get In Touch</span>
+            <h2>Say hello</h2>
+            <p>hello@hurutungo.com</p>
+            <p>New England, USA</p>
+        </div>
         <form action="https://formspree.io/f/xjkenlna" method="post" onsubmit="alert('Thank you for reaching out! We will get back to you soon.'); this.reset(); return false;">
             <input type="text" name="name" placeholder="Your Name" required />
             <input type="email" name="email" placeholder="Your Email" required />
@@ -346,9 +491,23 @@
             <button type="submit">SEND MESSAGE</button>
         </form>
     </section>
-    
+
+    <script>
+        (function () {
+            var slides = document.querySelectorAll('.story-images img');
+            if (slides.length < 2) return;
+            var i = 0;
+            setInterval(function () {
+                slides[i].classList.remove('active');
+                i = (i + 1) % slides.length;
+                slides[i].classList.add('active');
+            }, 2000);
+        })();
+    </script>
+
     <footer>
-        &copy; 2025 Hurutungo LLC. All rights reserved.
+        <span>&copy; 2026 Hurutungo LLC. All rights reserved.</span>
+        <a href="https://www.wallyswickedgood.com" target="_blank" rel="noopener noreferrer">Wally's Wicked Good Ice Cream &nearr;</a>
     </footer>
 </body>
 </html>
