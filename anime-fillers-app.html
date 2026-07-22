@@ -416,6 +416,10 @@
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape') close();
             });
+
+            if (window.location.hash === '#privacy') {
+                open({ preventDefault: function () {} });
+            }
         })();
     </script>
 </body>
