@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scoop — Hurutungo</title>
+    <title>Anime Fillers — Hurutungo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -144,6 +144,75 @@
             opacity: 0.8;
         }
 
+        .privacy-link {
+            display: inline-block;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--app-text-muted);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .privacy-link:hover {
+            color: var(--app-text);
+        }
+
+        /* Privacy policy modal */
+        .privacy-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 12, 10, 0.5);
+            align-items: center;
+            justify-content: center;
+            padding: 5vh 5%;
+            z-index: 100;
+        }
+
+        .privacy-overlay.open {
+            display: flex;
+        }
+
+        .privacy-modal {
+            position: relative;
+            width: min(640px, 100%);
+            height: min(80vh, 760px);
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+        }
+
+        .privacy-modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .privacy-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(58, 42, 38, 0.08);
+            color: var(--app-text);
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        .privacy-modal-close:hover {
+            background: rgba(58, 42, 38, 0.16);
+        }
+
         /* Phone mockup */
         .phone-wrap {
             display: flex;
@@ -270,13 +339,14 @@
         <div class="app-info">
             <div class="app-heading">
                 <div class="app-icon"><span>ICON</span></div>
-                <div class="app-name">Scoop</div>
+                <div class="app-name">Anime Fillers</div>
             </div>
             <p class="app-description">Placeholder description — a couple of sentences on what the app does, who it's for, and the one thing that makes it worth downloading.</p>
             <div class="store-links">
                 <a href="#" class="store-btn">App Store</a>
-                <a href="#" class="store-btn">Google Play</a>
+                <!-- <a href="#" class="store-btn">Google Play</a> -->
             </div>
+            <a href="privacy/anime-fillers.html" class="privacy-link" id="privacyLink">Privacy Policy</a>
         </div>
 
         <div class="phone-wrap">
@@ -307,5 +377,46 @@
             </div>
         </div>
     </div>
+
+    <div class="privacy-overlay" id="privacyOverlay">
+        <div class="privacy-modal">
+            <button class="privacy-modal-close" id="privacyClose" aria-label="Close privacy policy">&times;</button>
+            <iframe id="privacyFrame" title="Privacy Policy"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var link = document.getElementById('privacyLink');
+            var overlay = document.getElementById('privacyOverlay');
+            var frame = document.getElementById('privacyFrame');
+            var closeBtn = document.getElementById('privacyClose');
+            var loaded = false;
+
+            function open(e) {
+                e.preventDefault();
+                if (!loaded) {
+                    frame.src = link.getAttribute('href');
+                    loaded = true;
+                }
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function close() {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            link.addEventListener('click', open);
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) close();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') close();
+            });
+        })();
+    </script>
 </body>
 </html>
