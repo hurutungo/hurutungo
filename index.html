@@ -237,7 +237,7 @@
 
         .apps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 340px));
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 340px));
             justify-content: center;
             gap: 1.5rem;
             max-width: 1080px;
@@ -404,10 +404,6 @@
                 order: -1;
             }
 
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
-
             footer {
                 flex-direction: column;
                 gap: 0.5rem;
@@ -460,7 +456,7 @@
             <div class="app-card">
                 <img src="anime-fillers-icon.png" class="app-icon" alt="Anime Fillers app icon">
                 <h3>Anime Fillers</h3>
-                <p>Details coming soon — each app gets its own page at hurutungo.com/appname</p>
+                <p>Skip the filler, watch the story. A canon-only episode guide for anime — with favorites, progress tracking, and iCloud sync.</p>
                 <a href="anime-fillers-app.html">Learn more &rarr;</a>
             </div>
             <!-- <div class="app-card disabled">
