@@ -6,7 +6,7 @@
     <title>Anime Fillers — Hurutungo</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
     <style>
         /* =====================================================================
            APP THEME — edit these variables to re-skin this page for a new app.
@@ -16,7 +16,6 @@
         :root {
             --app-bg: #EAF5F2;          /* page/panel background */
             --app-accent: #1E9E8C;      /* app name, store buttons */
-            --app-accent-dark: #5f1722; /* store button hover */
             --app-text: #3a2a26;        /* app name text */
             --app-text-muted: #8c7b72;  /* description text */
         }
@@ -52,33 +51,34 @@
             margin: 1.5rem 4% 3rem;
             background: var(--app-bg);
             border-radius: 28px;
-            padding: 4rem 6%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
+            padding: 4.5rem 6% 0;
+            overflow: hidden;
+            text-align: center;
         }
 
         .app-info {
-            max-width: 420px;
+            max-width: 640px;
+            margin: 0 auto;
         }
 
         .app-heading {
             display: flex;
             align-items: center;
-            gap: 1.1rem;
-            margin-bottom: 1.75rem;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .app-icon {
-            width: 64px;
-            height: 64px;
+            width: 56px;
+            height: 56px;
             flex-shrink: 0;
         }
 
         .app-name {
             font-family: 'Playfair Display', serif;
-            font-size: 2.1rem;
+            font-size: clamp(1.9rem, 4vw, 2.4rem);
+            font-style: italic;
             font-weight: 700;
             color: var(--app-text);
         }
@@ -87,14 +87,15 @@
             font-size: 1.02rem;
             line-height: 1.65;
             color: var(--app-text-muted);
-            margin-bottom: 2rem;
+            max-width: 540px;
+            margin: 0 auto 2rem;
         }
 
         .store-links {
             display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-            max-width: 240px;
+            align-items: center;
+            justify-content: center;
+            gap: 1.25rem;
         }
 
         .store-btn {
@@ -103,16 +104,13 @@
             gap: 0.6rem;
             background: var(--app-accent);
             color: #fff;
+            border: 1px solid var(--app-accent);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            padding: 0.85rem 1.25rem;
+            padding: 0.85rem 1.5rem;
             border-radius: 10px;
-            transition: background 0.2s ease;
-        }
-
-        .store-btn:hover {
-            background: var(--app-accent-dark);
+            transition: background 0.2s ease, color 0.2s ease;
         }
 
         .store-btn::before {
@@ -120,13 +118,16 @@
             width: 6px;
             height: 6px;
             border-radius: 50%;
-            background: #fff;
+            background: currentColor;
             opacity: 0.8;
         }
 
+        .store-btn:hover {
+            background: #fff;
+            color: var(--app-accent);
+        }
+
         .privacy-link {
-            display: inline-block;
-            margin-top: 1.5rem;
             font-size: 0.85rem;
             color: var(--app-text-muted);
             text-decoration: underline;
@@ -193,26 +194,40 @@
             background: rgba(58, 42, 38, 0.16);
         }
 
-        /* Phone mockup */
-        .phone-wrap {
+        /* Phone mockups — fanned on wide screens, stacked on narrow */
+        .phone-fan {
             display: flex;
             justify-content: center;
+            align-items: flex-start;
+            gap: 2.5rem;
+            margin-top: 4.5rem;
+            height: 340px;
+            overflow: hidden;
         }
 
         .phone {
-            width: 260px;
-            height: 540px;
+            width: 220px;
+            height: 460px;
+            flex-shrink: 0;
             background: #111;
-            border-radius: 40px;
-            padding: 10px;
+            border-radius: 36px;
+            padding: 9px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .phone:first-child {
+            transform: rotate(-8deg) translateY(32px);
+        }
+
+        .phone:last-child {
+            transform: rotate(8deg) translateY(32px);
         }
 
         .phone-screen {
             width: 100%;
             height: 100%;
             background: #fff;
-            border-radius: 30px;
+            border-radius: 28px;
             overflow: hidden;
         }
 
@@ -223,20 +238,23 @@
             display: block;
         }
 
-        @media (max-width: 760px) {
+        @media (max-width: 860px) {
             .panel {
-                grid-template-columns: 1fr;
-                text-align: left;
                 padding: 3rem 8%;
             }
 
-            .phone-wrap {
-                order: -1;
+            .phone-fan {
+                flex-direction: column;
+                align-items: center;
+                gap: 2.5rem;
+                margin-top: 3.5rem;
+                height: auto;
+                overflow: visible;
             }
 
-            .phone {
-                width: 220px;
-                height: 460px;
+            .phone:first-child,
+            .phone:last-child {
+                transform: none;
             }
         }
     </style>
@@ -250,18 +268,28 @@
                 <img src="anime-fillers-icon.png" class="app-icon" alt="Anime Fillers app icon">
                 <div class="app-name">Anime Fillers</div>
             </div>
-            <p class="app-description"> Know exactly which episodes to skip. Anime Fillers marks every canon and filler episode, so you can skip the padding and watch the story that matters. Favorite your shows, track your progress, and share a series in one tap — all synced across your devices with iCloud.</p>
+            <p class="app-description">Know exactly which episodes to skip. Anime Fillers marks every canon and filler episode, so you can skip the padding and watch the story that matters. Favorite your shows, track your progress, and share a series in one tap — all synced across your devices with iCloud.</p>
             <div class="store-links">
-                <a href="#" class="store-btn">App Store</a>
+                <a href="https://apps.apple.com/app/id6793270427" target="_blank" rel="noopener noreferrer" class="store-btn">App Store</a>
                 <!-- <a href="#" class="store-btn">Google Play</a> -->
+                <a href="privacy/anime-fillers.html" class="privacy-link" id="privacyLink">Privacy Policy</a>
             </div>
-            <a href="privacy/anime-fillers.html" class="privacy-link" id="privacyLink">Privacy Policy</a>
         </div>
 
-        <div class="phone-wrap">
+        <div class="phone-fan">
             <div class="phone">
                 <div class="phone-screen">
-                    <img src="anime-fillers-screenshot.jpg" alt="Anime Fillers anime list screen">
+                    <img src="anime-fillers-screenshot-2.jpg" alt="Watch guide showing which episodes to watch and how many are skipped">
+                </div>
+            </div>
+            <div class="phone">
+                <div class="phone-screen">
+                    <img src="anime-fillers-screenshot-1.jpg" alt="Anime list browsing screen">
+                </div>
+            </div>
+            <div class="phone">
+                <div class="phone-screen">
+                    <img src="anime-fillers-screenshot-3.jpg" alt="Series detail screen with canon and filler episode breakdown">
                 </div>
             </div>
         </div>
