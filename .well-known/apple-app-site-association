@@ -1,0 +1,22 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appIDs": ["9NM4DLTS84.hurutungo.AnimeFillers"],
+        "components": [
+          {
+            "/": "/anime/",
+            "?": { "s": "?*" },
+            "comment": "Shared anime links open in the app"
+          },
+          {
+            "/": "/anime",
+            "?": { "s": "?*" },
+            "comment": "Same link without the trailing slash"
+          }
+        ]
+      }
+    ]
+  }
+}

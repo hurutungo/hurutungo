@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Fillers — Hurutungo</title>
+    <meta property="og:title" content="Anime Fillers">
+    <meta property="og:description" content="Know exactly which episodes to skip.">
+    <meta property="og:image" content="https://hurutungo.com/anime-fillers-icon.png">
+    <meta property="og:url" content="https://hurutungo.com/anime/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Anime Fillers">
+    <meta name="twitter:description" content="Know exactly which episodes to skip.">
+    <meta name="twitter:image" content="https://hurutungo.com/anime-fillers-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --app-bg: #EAF5F2;
+            --app-accent: #1E9E8C;
+            --app-text: #3a2a26;
+            --app-text-muted: #8c7b72;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: var(--app-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .back-link {
+            padding: 1.5rem 6% 0;
+            font-size: 0.85rem;
+            color: var(--app-text-muted);
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: var(--app-text);
+        }
+
+        .panel {
+            flex: 1;
+            margin: 1.5rem 4% 3rem;
+            background: var(--app-bg);
+            border-radius: 28px;
+            padding: 4.5rem 6%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .app-info {
+            max-width: 480px;
+        }
+
+        .app-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+        }
+
+        .app-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.7rem, 4vw, 2.1rem);
+            font-style: italic;
+            font-weight: 700;
+            color: var(--app-text);
+            margin-bottom: 1rem;
+        }
+
+        .app-description {
+            font-size: 1rem;
+            line-height: 1.65;
+            color: var(--app-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .store-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: var(--app-accent);
+            color: #fff;
+            border: 1px solid var(--app-accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .store-btn:hover {
+            background: #fff;
+            color: var(--app-accent);
+        }
+    </style>
+</head>
+<body>
+    <a href="/anime-fillers-app.html" class="back-link">&larr; hurutungo</a>
+
+    <div class="panel">
+        <div class="app-info">
+            <img src="/anime-fillers-icon.png" class="app-icon" alt="Anime Fillers app icon">
+            <div class="app-name">Anime Fillers</div>
+            <p class="app-description">Know exactly which episodes to skip. Opening the App Store&hellip;</p>
+            <a href="https://apps.apple.com/app/id6793270427" class="store-btn" id="storeLink">Get AnimeFillers on the App Store</a>
+        </div>
+    </div>
+
+    <script>
+        // The redirect target is fixed — this page never reads or displays
+        // the `s` query param, so nothing here is attacker-influenced.
+        window.location.replace(document.getElementById('storeLink').href);
+    </script>
+</body>
+</html>
