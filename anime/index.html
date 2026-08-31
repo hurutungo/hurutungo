@@ -3,6 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        // Smart App Banner's app-argument has to carry this exact page's
+        // query string (the shared slug) so tapping OPEN in Safari hands it
+        // straight to onOpenURL — Apple's meta tag has no way to interpolate
+        // that, so it's built here instead. Runs synchronously (no defer),
+        // before Safari's own banner check.
+        (function () {
+            var meta = document.createElement('meta');
+            meta.name = 'apple-itunes-app';
+            meta.content = 'app-id=6793270427, app-argument=' + window.location.href;
+            document.head.appendChild(meta);
+        })();
+    </script>
     <title>Anime Fillers — Hurutungo</title>
     <meta property="og:title" content="Anime Fillers">
     <meta property="og:description" content="Know exactly which episodes to skip.">
@@ -115,16 +128,29 @@
     <div class="panel">
         <div class="app-info">
             <img src="/anime-fillers-icon.png" class="app-icon" alt="Anime Fillers app icon">
-            <div class="app-name">Anime Fillers</div>
-            <p class="app-description">Know exactly which episodes to skip. Opening the App Store&hellip;</p>
+            <div class="app-name" id="appName">Anime Fillers</div>
+            <p class="app-description" id="appDescription">Know exactly which episodes to skip.</p>
             <a href="https://apps.apple.com/app/id6793270427" class="store-btn" id="storeLink">Get AnimeFillers on the App Store</a>
         </div>
     </div>
 
     <script>
-        // The redirect target is fixed — this page never reads or displays
-        // the `s` query param, so nothing here is attacker-influenced.
-        window.location.replace(document.getElementById('storeLink').href);
+        // No auto-redirect: a user who long-presses this link and picks
+        // "Open in Safari" gets a per-domain opt-out from iOS that stops the
+        // app from opening for future taps — an auto-redirecting page would
+        // then trap them here with no way back. The button is the only path.
+        var slug = new URLSearchParams(window.location.search).get('s');
+        if (slug) {
+            var name = slug
+                .split('-')
+                .filter(Boolean)
+                .map(function (word) { return word.charAt(0).toUpperCase() + word.slice(1); })
+                .join(' ');
+            document.getElementById('appName').textContent = name;
+            document.getElementById('appDescription').textContent =
+                'Get the watch guide for ' + name + ' in the app.';
+            document.title = name + ' watch guide — Anime Fillers';
+        }
     </script>
 </body>
 </html>
