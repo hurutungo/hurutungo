@@ -120,7 +120,7 @@
             flex-direction: column;
             align-items: center;
         }
-        .phone.dark .screen { background: var(--basalt); }
+        .screen .shot { width: 100%; height: 100%; object-fit: cover; object-position: top; }
         .island { width: 32%; height: 22px; border-radius: 12px; background: #000; margin-top: 10px; flex-shrink: 0; }
         .topbar { width: 100%; display: flex; justify-content: space-between; padding: 14px 16px 0; color: var(--ink); }
         .topbar svg { width: 15px; height: 15px; }
@@ -133,26 +133,18 @@
             display: flex; align-items: center; justify-content: center;
         }
         .disc span { width: 74%; aspect-ratio: 1; border-radius: 50%; background: var(--record); box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.14); }
-        .phone.dark .disc { background: #131210; box-shadow: inset 0 3px 9px rgba(0, 0, 0, 0.6), 0 0 0 8px var(--basalt), 0 0 0 9px #3A3731; }
-        .disc .stop { width: 32%; border-radius: 18%; background: var(--record); display: flex; align-items: center; justify-content: center; }
-        .disc .stop i { width: 40%; aspect-ratio: 1; border-radius: 3px; background: #fff; }
         .hint { font-size: 0.5rem; color: var(--stone); text-align: center; padding: 14px 24px 0; line-height: 1.4; }
-        .phone.dark .hint { color: var(--basalt-stone); }
         .pills { display: flex; gap: 6px; padding: 12px 0 26px; }
         .pill { font-size: 0.5rem; padding: 6px 11px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); color: var(--stone); }
         .pill.on { background: var(--ink); color: var(--bg); box-shadow: none; }
-        .timer-pill { margin-top: 14px; font-size: 0.55rem; color: var(--basalt-text); background: #2A2823; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
-        .timer-pill b { width: 5px; height: 5px; border-radius: 50%; background: var(--record); display: block; }
         .review-done { width: 100%; text-align: right; font-size: 0.55rem; font-weight: 600; padding: 12px 18px 0; }
-        .review-preview { position: relative; width: 62%; flex: 1; margin-top: 8px; border-radius: 12px; background: var(--raised); box-shadow: 0 0 0 1px var(--line); overflow: hidden; display: flex; flex-direction: column; gap: 6px; padding: 18px 10px 0; }
-        .review-preview .bar { height: 4px; border-radius: 2px; background: var(--line); }
-        .review-preview .block { border-radius: 6px; background: var(--surface); }
+        .review-preview { position: relative; width: 62%; flex: 1; margin-top: 8px; border-radius: 12px; background: var(--raised); box-shadow: 0 0 0 1px var(--line); overflow: hidden; display: flex; flex-direction: column; gap: 6px; padding: 0; }
+        .review-preview img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .review-preview .play { position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%); width: 26px; height: 26px; border-radius: 50%; background: rgba(28, 27, 25, 0.6); display: flex; align-items: center; justify-content: center; }
         .review-preview .play::after { content: ""; border-left: 7px solid #F4F1EA; border-top: 4.5px solid transparent; border-bottom: 4.5px solid transparent; margin-left: 2px; }
         .filmstrip { position: relative; width: 86%; height: 26px; margin-top: 12px; }
-        .filmstrip .frames { position: absolute; inset: 0; display: flex; gap: 1px; border-radius: 5px; overflow: hidden; background: var(--bg); }
-        .filmstrip .frames span { flex: 1; background: var(--surface); display: flex; align-items: center; justify-content: center; }
-        .filmstrip .frames span::after { content: ""; width: 58%; height: 62%; border-radius: 2px; background: var(--raised); }
+        .filmstrip .frames { position: absolute; inset: 0; display: flex; border-radius: 5px; overflow: hidden; background: var(--bg); }
+        .filmstrip .frames img { width: 100%; height: 100%; object-fit: cover; }
         .filmstrip .dim { position: absolute; top: 0; bottom: 0; background: var(--bg); opacity: 0.72; }
         .filmstrip .dim.l { left: 0; width: 18%; border-radius: 5px 0 0 5px; }
         .filmstrip .dim.r { right: 0; width: 14%; border-radius: 0 5px 5px 0; }
@@ -161,7 +153,7 @@
         .filmstrip .h::after { content: ""; width: 1.5px; height: 8px; border-radius: 1px; background: var(--bg); }
         .filmstrip .h.s { left: 0; border-radius: 5px 0 0 5px; }
         .filmstrip .h.e { right: 0; border-radius: 0 5px 5px 0; }
-        .filmstrip .ph { position: absolute; top: -4px; bottom: -4px; left: 44%; width: 2px; border-radius: 1px; background: #fff; box-shadow: 0 0 0 0.5px rgba(28, 27, 25, 0.35); }
+        .filmstrip .ph { position: absolute; top: -4px; bottom: -4px; left: 53.5%; width: 2px; border-radius: 1px; background: #fff; box-shadow: 0 0 0 0.5px rgba(28, 27, 25, 0.35); }
         .times { width: 86%; display: flex; justify-content: space-between; margin-top: 6px; font-size: 0.42rem; color: var(--stone); font-variant-numeric: tabular-nums; }
         .times b { color: var(--ink); font-weight: 500; }
         .review-share { width: 86%; margin-top: 12px; background: var(--ink); color: var(--bg); font-size: 0.55rem; font-weight: 600; text-align: center; padding: 8px 0; border-radius: 999px; }
@@ -290,18 +282,12 @@
                 <p>One button, in reach of your thumb.</p>
             </div>
             <div class="step">
-                <div class="phone dark" role="img" aria-label="Recording in progress with a timer and a stop button">
-                    <div class="screen">
-                        <div class="island"></div>
-                        <span class="timer-pill"><b></b>4:17</span>
-                        <div class="fill"></div>
-                        <div class="disc"><span class="stop"><i></i></span></div>
-                        <p class="hint" style="padding-bottom: 60px">Recording. Tap to stop.</p>
-                    </div>
+                <div class="phone" role="img" aria-label="Recording another app with a facecam bubble">
+                    <div class="screen"><img class="shot" src="stele-recording.jpg" alt=""></div>
                 </div>
                 <div class="num">02</div>
                 <h4>Use your phone as usual</h4>
-                <p>A timer and a stop button. Nothing else.</p>
+                <p>Keep using your apps. Add a facecam if you want.</p>
             </div>
             <div class="step">
                 <div class="phone" role="img" aria-label="Review screen with trim and share">
@@ -309,19 +295,11 @@
                         <div class="island"></div>
                         <div class="review-done">Done</div>
                         <div class="review-preview">
-                            <div class="bar" style="width: 46%"></div>
-                            <div class="block" style="height: 30%"></div>
-                            <div class="bar" style="width: 80%"></div>
-                            <div class="bar" style="width: 64%"></div>
-                            <div class="bar" style="width: 72%"></div>
-                            <div class="block" style="height: 16%; margin-top: 4px"></div>
-                            <div class="bar" style="width: 58%; margin-top: 4px"></div>
-                            <div class="bar" style="width: 76%"></div>
-                            <div style="display: flex; gap: 6px; height: 14%"><div class="block" style="flex: 1"></div><div class="block" style="flex: 1"></div></div>
+                            <img src="stele-review-frame.jpg" alt="">
                             <span class="play"></span>
                         </div>
                         <div class="filmstrip">
-                            <div class="frames"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                            <div class="frames"><img src="stele-review-timeline.jpg" alt=""></div>
                             <div class="dim l"></div><div class="dim r"></div>
                             <div class="sel"><div class="h s"></div><div class="h e"></div></div>
                             <div class="ph"></div>
