@@ -200,6 +200,14 @@
         footer a { color: var(--stone); }
         footer a:hover { color: var(--ink); }
 
+        /* Privacy policy modal */
+        .privacy-overlay { display: none; position: fixed; inset: 0; background: rgba(28, 27, 25, 0.55); align-items: center; justify-content: center; padding: 5vh 5%; z-index: 100; }
+        .privacy-overlay.open { display: flex; }
+        .privacy-modal { position: relative; width: min(640px, 100%); height: min(80vh, 760px); background: var(--bg); border-radius: 20px; overflow: hidden; box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35); }
+        .privacy-modal iframe { width: 100%; height: 100%; border: none; display: block; }
+        .privacy-modal-close { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border: none; border-radius: 50%; background: rgba(28, 27, 25, 0.08); color: var(--ink); font-size: 1.1rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .privacy-modal-close:hover { background: rgba(28, 27, 25, 0.16); }
+
         @media (max-width: 860px) {
             .nav-links a:not(.btn) { display: none; }
             .hero { grid-template-columns: 1fr; padding-top: 1.5rem; }
@@ -336,7 +344,7 @@
                 <div class="eyebrow">Privacy</div>
                 <h2 class="serif">Your recordings never leave your phone.</h2>
             </div>
-            <p>No uploads and no subscriptions. What you record stays on your device until you choose to share it. <a href="privacy/stele.html">Read the privacy policy</a>.</p>
+            <p>No uploads and no subscriptions. What you record stays on your device until you choose to share it. <a href="privacy/stele.html" class="privacy-link">Read the privacy policy</a>.</p>
         </div>
     </section>
 
@@ -349,8 +357,44 @@
     <footer>
         <div class="wrap">
             <span>&copy; 2026 hurutungo LLC</span>
-            <span><a href="index.html#apps">More from hurutungo</a> &middot; <a href="privacy/stele.html">Privacy Policy</a> &middot; <a href="mailto:hello@hurutungo.com">hello@hurutungo.com</a></span>
+            <span><a href="index.html#apps">More from hurutungo</a> &middot; <a href="privacy/stele.html" class="privacy-link">Privacy Policy</a> &middot; <a href="mailto:hello@hurutungo.com">hello@hurutungo.com</a></span>
         </div>
     </footer>
+    <div class="privacy-overlay" id="privacyOverlay">
+        <div class="privacy-modal">
+            <button class="privacy-modal-close" id="privacyClose" aria-label="Close privacy policy">&times;</button>
+            <iframe id="privacyFrame" title="Privacy Policy"></iframe>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            var links = document.querySelectorAll('.privacy-link');
+            var overlay = document.getElementById('privacyOverlay');
+            var frame = document.getElementById('privacyFrame');
+            var closeBtn = document.getElementById('privacyClose');
+
+            function open(e) {
+                e.preventDefault();
+                if (!frame.src) frame.src = e.currentTarget.getAttribute('href');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function close() {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            links.forEach(function (link) { link.addEventListener('click', open); });
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) close();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') close();
+            });
+        })();
+    </script>
 </body>
 </html>
