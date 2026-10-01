@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stele — Screen Recorder for iPhone</title>
+    <meta name="description" content="Stele is a screen recorder for iPhone. One tap to record, a floating facecam, trim and share. No account, no subscription. Your recordings never leave your phone.">
+    <link rel="icon" href="stele-icon.png">
+    <link rel="apple-touch-icon" href="stele-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
+    <style>
+        /* Stele theme tokens (light) — the same values as the app. */
+        :root {
+            --bg: #F4F1EA;
+            --well: #E6E0D3;
+            --surface: #E9E4D9;
+            --raised: #FBF9F4;
+            --ink: #1C1B19;
+            --stone: #6B665C;
+            --line: #DCD6CA;
+            --record: #C23B22;
+            --accent-text: #B83820;
+            --basalt: #1C1B19;
+            --basalt-text: #F4F1EA;
+            --basalt-stone: #A39E93;
+            --serif: ui-serif, "New York", "Source Serif 4", Georgia, serif;
+            --sans: -apple-system, BlinkMacSystemFont, "Inter", system-ui, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        a { color: inherit; }
+
+        .wrap { max-width: 1120px; margin: 0 auto; padding: 0 6%; }
+
+        .eyebrow {
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--stone);
+            font-weight: 500;
+        }
+
+        .serif { font-family: var(--serif); font-weight: 400; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: var(--ink);
+            color: var(--bg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.85rem 1.4rem;
+            border-radius: 999px;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn:hover { opacity: 0.85; }
+        .btn svg { width: 15px; height: 15px; }
+
+        /* Nav */
+        nav { display: flex; align-items: center; justify-content: space-between; padding: 1.6rem 0; }
+        .wordmark { font-family: var(--serif); font-size: 1.35rem; text-decoration: none; }
+        .wordmark span { color: var(--record); }
+        .nav-links { display: flex; align-items: center; gap: 2rem; font-size: 0.82rem; }
+        .nav-links a:not(.btn) { color: var(--stone); text-decoration: none; }
+        .nav-links a:not(.btn):hover { color: var(--ink); }
+        .nav-links .btn { padding: 0.6rem 1.1rem; font-size: 0.82rem; }
+
+        /* Hero */
+        .hero { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 3rem; padding: 3rem 0 4rem; }
+        .hero h1 { font-size: clamp(2.6rem, 6vw, 4.3rem); line-height: 1.05; margin: 1.2rem 0 1.4rem; letter-spacing: -0.01em; }
+        .hero p.lede { color: var(--stone); font-size: 1.02rem; max-width: 430px; }
+        .hero .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 1.2rem; margin-top: 2rem; }
+        .hero .cta small { color: var(--stone); font-size: 0.75rem; line-height: 1.4; }
+        .hero-visual { position: relative; display: flex; justify-content: center; }
+        body { overflow-x: hidden; }
+        .hero-visual::before {
+            content: "";
+            position: absolute;
+            width: min(460px, 92vw); height: min(460px, 92vw);
+            top: 8%; left: 50%; transform: translateX(-50%);
+            border-radius: 50%;
+            background: var(--well);
+            opacity: 0.7;
+        }
+
+        /* Phone mockup */
+        .phone {
+            position: relative;
+            width: 260px;
+            aspect-ratio: 9 / 19.2;
+            border-radius: 44px;
+            background: var(--basalt);
+            padding: 9px;
+            box-shadow: 0 30px 60px -20px rgba(28, 27, 25, 0.35);
+        }
+        .phone.large { width: 300px; }
+        .phone .screen {
+            position: relative;
+            height: 100%;
+            border-radius: 36px;
+            background: var(--bg);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .phone.dark .screen { background: var(--basalt); }
+        .island { width: 32%; height: 22px; border-radius: 12px; background: #000; margin-top: 10px; flex-shrink: 0; }
+        .topbar { width: 100%; display: flex; justify-content: space-between; padding: 14px 16px 0; color: var(--ink); }
+        .topbar svg { width: 15px; height: 15px; }
+        .fill { flex: 1; }
+        .disc {
+            width: 46%; aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--well);
+            box-shadow: inset 0 3px 9px rgba(28, 27, 25, 0.16), inset 0 -1px 0 rgba(255, 255, 255, 0.9), 0 0 0 8px var(--bg), 0 0 0 9px var(--line);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .disc span { width: 74%; aspect-ratio: 1; border-radius: 50%; background: var(--record); box-shadow: inset 0 -4px 8px rgba(0, 0, 0, 0.14); }
+        .phone.dark .disc { background: #131210; box-shadow: inset 0 3px 9px rgba(0, 0, 0, 0.6), 0 0 0 8px var(--basalt), 0 0 0 9px #3A3731; }
+        .disc .stop { width: 32%; border-radius: 18%; background: var(--record); display: flex; align-items: center; justify-content: center; }
+        .disc .stop i { width: 40%; aspect-ratio: 1; border-radius: 3px; background: #fff; }
+        .hint { font-size: 0.5rem; color: var(--stone); text-align: center; padding: 14px 24px 0; line-height: 1.4; }
+        .phone.dark .hint { color: var(--basalt-stone); }
+        .pills { display: flex; gap: 6px; padding: 12px 0 26px; }
+        .pill { font-size: 0.5rem; padding: 6px 11px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--line); color: var(--stone); }
+        .pill.on { background: var(--ink); color: var(--bg); box-shadow: none; }
+        .timer-pill { margin-top: 14px; font-size: 0.55rem; color: var(--basalt-text); background: #2A2823; padding: 4px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; font-variant-numeric: tabular-nums; }
+        .timer-pill b { width: 5px; height: 5px; border-radius: 50%; background: var(--record); display: block; }
+        .review-done { width: 100%; text-align: right; font-size: 0.55rem; font-weight: 600; padding: 12px 18px 0; }
+        .review-preview { width: 86%; flex: 1; margin-top: 10px; border-radius: 10px; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+        .review-preview i { width: 22px; height: 22px; border-radius: 50%; background: var(--raised); display: flex; align-items: center; justify-content: center; }
+        .review-preview i::after { content: ""; border-left: 6px solid var(--ink); border-top: 4px solid transparent; border-bottom: 4px solid transparent; margin-left: 2px; }
+        .review-track { width: 86%; height: 22px; margin-top: 10px; border-radius: 5px; background: var(--surface); position: relative; }
+        .review-track::after { content: ""; position: absolute; left: 26%; right: 20%; top: 0; bottom: 0; border: 1.5px solid var(--ink); border-radius: 5px; }
+        .review-share { width: 86%; margin-top: 14px; background: var(--ink); color: var(--bg); font-size: 0.55rem; font-weight: 600; text-align: center; padding: 8px 0; border-radius: 999px; }
+        .review-save { font-size: 0.48rem; color: var(--stone); padding: 9px 0 22px; }
+
+        /* Principles */
+        .principles { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+        .principles .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; padding-top: 4.5rem; padding-bottom: 4.5rem; }
+        .principles h3, .step h3 { font-family: var(--serif); font-weight: 400; font-size: 1.45rem; margin-bottom: 0.5rem; }
+        .principles p { color: var(--stone); font-size: 0.86rem; max-width: 300px; }
+
+        /* How it works */
+        .how { padding-top: 5.5rem; padding-bottom: 4rem; }
+        .how h2, .small h2 { font-size: clamp(2rem, 4vw, 2.6rem); margin: 0.9rem 0 2.6rem; }
+        .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+        .step .phone { width: 100%; max-width: 240px; }
+        .step .num { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--stone); margin-top: 1.2rem; }
+        .step h4 { font-size: 0.95rem; font-weight: 600; margin: 0.2rem 0 0.2rem; }
+        .step p { color: var(--stone); font-size: 0.86rem; max-width: 280px; }
+
+        /* Small, on purpose */
+        .small { background: var(--surface); padding: 4.5rem 0; }
+        .features { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 2.5rem; }
+        .feature { padding: 1.4rem 0; border-top: 1px solid var(--line); }
+        .feature:nth-child(-n+3) { border-top: 0; padding-top: 0; }
+        .feature h4 { font-size: 0.88rem; font-weight: 600; margin-bottom: 0.3rem; }
+        .feature p { color: var(--stone); font-size: 0.82rem; max-width: 300px; }
+
+        /* Privacy */
+        .privacy { background: var(--basalt); color: var(--basalt-text); padding: 5.5rem 0; }
+        .privacy .wrap { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: center; }
+        .privacy .eyebrow { color: var(--basalt-stone); }
+        .privacy h2 { font-size: clamp(2rem, 4vw, 2.6rem); line-height: 1.15; margin-top: 0.9rem; }
+        .privacy p { color: var(--basalt-stone); font-size: 0.9rem; }
+        .privacy a { color: var(--basalt-text); }
+
+        /* Final CTA */
+        .final { text-align: center; padding: 5rem 0 4.5rem; }
+        .final .disc { width: 72px; margin: 0 auto; box-shadow: inset 0 3px 9px rgba(28, 27, 25, 0.16), 0 0 0 6px var(--bg), 0 0 0 7px var(--line); }
+        .final h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin: 2rem 0 1.4rem; }
+
+        footer { border-top: 1px solid var(--line); }
+        footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding-top: 1.6rem; padding-bottom: 2rem; font-size: 0.78rem; color: var(--stone); }
+        footer a { color: var(--stone); }
+        footer a:hover { color: var(--ink); }
+
+        @media (max-width: 860px) {
+            .nav-links a:not(.btn) { display: none; }
+            .hero { grid-template-columns: 1fr; padding-top: 1.5rem; }
+            .phone.large { width: min(280px, 78vw); }
+            .final h2 { padding: 0 6%; }
+            .hero-visual { margin-top: 1rem; }
+            .principles .wrap, .steps, .features, .privacy .wrap { grid-template-columns: 1fr; }
+            .feature:nth-child(-n+3) { border-top: 1px solid var(--line); padding-top: 1.4rem; }
+            .feature:first-child { border-top: 0; padding-top: 0; }
+            .step .phone { margin: 0 auto; }
+            .step { text-align: center; }
+            .step p { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <nav>
+            <a href="#" class="wordmark">Stele<span>.</span></a>
+            <div class="nav-links">
+                <a href="#how">How it works</a>
+                <a href="#details">Details</a>
+                <a href="#privacy">Privacy</a>
+                <a href="#get" class="btn">Get Stele</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div>
+                <div class="eyebrow">Screen recorder for iPhone</div>
+                <h1 class="serif">One tap to record. Nothing in the way.</h1>
+                <p class="lede">Stele records your screen, then gets out of your way. Trim, share, done. Your recordings never leave your phone.</p>
+                <div class="cta">
+                    <a href="APP_STORE_URL" class="btn" id="get">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10.5l5 5 5-5"/><path d="M5 20h14"/></svg>
+                        Download on the App Store
+                    </a>
+                    <small>iOS 18 or later.<br>No subscription.</small>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone large" role="img" aria-label="Stele home screen with the record button">
+                    <div class="screen">
+                        <div class="island"></div>
+                        <div class="topbar">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.8"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.8"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.8"/></svg>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8.5"/></svg>
+                        </div>
+                        <div class="fill"></div>
+                        <div class="disc"><span></span></div>
+                        <p class="hint">Recording starts after you confirm. Turn on the mic in the next sheet.</p>
+                        <div class="pills"><span class="pill">Facecam</span><span class="pill on">App audio</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="principles">
+        <div class="wrap">
+            <div><h3>One tap</h3><p>The record button is the whole home screen, right under your thumb.</p></div>
+            <div><h3>Nothing in the way</h3><p>A timer while you record. No overlays, no clutter, no extra steps.</p></div>
+            <div><h3>Stays on your phone</h3><p>Recordings are saved on your device. They go nowhere unless you share them.</p></div>
+        </div>
+    </section>
+
+    <section class="how wrap" id="how">
+        <div class="eyebrow">How it works</div>
+        <h2 class="serif">Record. Trim. Share.</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="phone" role="img" aria-label="Tap the record disc">
+                    <div class="screen">
+                        <div class="island"></div>
+                        <div class="fill"></div>
+                        <div class="disc"><span></span></div>
+                        <p class="hint">Tap once. Recording starts after you confirm.</p>
+                        <div class="pills"><span class="pill">Facecam</span><span class="pill on">App audio</span></div>
+                    </div>
+                </div>
+                <div class="num">01</div>
+                <h4>Tap the disc</h4>
+                <p>One button, in reach of your thumb.</p>
+            </div>
+            <div class="step">
+                <div class="phone dark" role="img" aria-label="Recording in progress with a timer and a stop button">
+                    <div class="screen">
+                        <div class="island"></div>
+                        <span class="timer-pill"><b></b>4:17</span>
+                        <div class="fill"></div>
+                        <div class="disc"><span class="stop"><i></i></span></div>
+                        <p class="hint" style="padding-bottom: 60px">Recording. Tap to stop.</p>
+                    </div>
+                </div>
+                <div class="num">02</div>
+                <h4>Use your phone as usual</h4>
+                <p>A timer and a stop button. Nothing else.</p>
+            </div>
+            <div class="step">
+                <div class="phone" role="img" aria-label="Review screen with trim and share">
+                    <div class="screen">
+                        <div class="island"></div>
+                        <div class="review-done">Done</div>
+                        <div class="review-preview"><i></i></div>
+                        <div class="review-track"></div>
+                        <div class="review-share">Share</div>
+                        <div class="review-save">Save to Photos</div>
+                    </div>
+                </div>
+                <div class="num">03</div>
+                <h4>Trim and share</h4>
+                <p>Cut the start and end, then send it where it needs to go.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="small" id="details">
+        <div class="wrap">
+            <h2 class="serif">Small, on purpose.</h2>
+            <div class="features">
+                <div class="feature"><h4>Facecam</h4><p>Add a small camera bubble when you want to be in the frame.</p></div>
+                <div class="feature"><h4>App audio</h4><p>Capture the sound from the app you are showing.</p></div>
+                <div class="feature"><h4>Trim and share</h4><p>Cut the start and end, then share without leaving Stele.</p></div>
+                <div class="feature"><h4>Recovered recordings</h4><p>If a recording is interrupted, what was captured is kept for you.</p></div>
+                <div class="feature"><h4>Live Activity</h4><p>See the timer on the Lock Screen and in the Dynamic Island.</p></div>
+                <div class="feature"><h4>Light and dark</h4><p>Limestone by day, basalt by night.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="privacy" id="privacy">
+        <div class="wrap">
+            <div>
+                <div class="eyebrow">Privacy</div>
+                <h2 class="serif">Your recordings never leave your phone.</h2>
+            </div>
+            <p>No uploads and no subscriptions. What you record stays on your device until you choose to share it. <a href="privacy/stele.html">Read the privacy policy</a>.</p>
+        </div>
+    </section>
+
+    <section class="final">
+        <div class="disc"><span></span></div>
+        <h2 class="serif">Record the next one in one tap.</h2>
+        <a href="APP_STORE_URL" class="btn">Download on the App Store</a>
+    </section>
+
+    <footer>
+        <div class="wrap">
+            <span>&copy; 2026 hurutungo LLC</span>
+            <span><a href="index.html#apps">More from hurutungo</a> &middot; <a href="privacy/stele.html">Privacy Policy</a> &middot; <a href="mailto:hello@hurutungo.com">hello@hurutungo.com</a></span>
+        </div>
+    </footer>
+</body>
+</html>
