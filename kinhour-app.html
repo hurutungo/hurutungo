@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinhour — Everyone on the same clock</title>
+<meta name="description" content="Kinhour turns the doses, feeds and walks you share into one live countdown, so whoever's on duty knows exactly what's next. No account needed. Coming soon to iPhone.">
+<link rel="icon" type="image/png" href="kinhour-icon.png">
+<link rel="apple-touch-icon" href="kinhour-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..800&family=Geist+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{overflow-x:clip;background:#F6F8FB;color:#0F1729;font-family:"Geist",-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#234C9B;text-decoration:none}a:hover{color:#2D9CDB}
+button,input{font-family:inherit}
+h1,h2,h3,p{margin:0;text-wrap:pretty}
+.kh-wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.kh-nav{position:sticky;top:0;z-index:20;background:rgba(246,248,251,0.82);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(15,23,41,0.06)}
+.kh-nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.kh-brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:19px;letter-spacing:-0.4px;color:#0F1729}
+.kh-brand:hover{color:#0F1729}
+.kh-brand img{width:32px;height:32px;border-radius:8px;box-shadow:0 1px 3px rgba(15,23,41,0.15)}
+.kh-navlinks{display:flex;align-items:center;gap:28px;font-size:14.5px;font-weight:500}
+.kh-navlinks a{color:#5C6982}.kh-navlinks a:hover{color:#0F1729}
+.kh-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:24px;border:0;background:#234C9B;color:#fff;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
+.kh-btn:hover{background:#1B3E82}
+.kh-btn.sm{height:38px;padding:0 16px;font-size:14px}
+.kh-btn:disabled,.kh-btn:disabled:hover{cursor:default;background:#234C9B;opacity:.6}
+.kh-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#234C9B;background:#E6EEFA;padding:6px 12px;border-radius:20px}
+.kh-eyebrow i{width:7px;height:7px;border-radius:4px;background:#2D9CDB;box-shadow:0 0 0 3px rgba(45,156,219,0.22)}
+.kh-h1{font-size:clamp(44px,7vw,84px);font-weight:700;letter-spacing:-0.045em;line-height:0.98}
+.kh-h1 em{font-style:normal;color:#234C9B}
+.kh-lede{font-size:clamp(17px,1.6vw,20px);line-height:1.5;color:#5C6982;max-width:540px}
+.kh-fine{font-size:13px;color:#939FB4}
+.kh-hero{padding-top:72px;padding-bottom:40px}
+.kh-hB{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:48px;align-items:center}
+.kh-hB-copy{display:flex;flex-direction:column;gap:22px;align-items:flex-start}
+.kh-cta-col{display:flex;flex-direction:column;gap:12px;align-items:flex-start;width:100%}
+.kh-hB-stage{position:relative;height:640px}
+.kh-hB-p1{position:absolute;left:6%;top:20px;transform:rotate(-4deg)}
+.kh-hB-p2{position:absolute;right:5%;top:70px;transform:rotate(3.5deg)}
+.kh-dev{width:250px;height:526px;flex-shrink:0;padding:7.2px;border-radius:39.6px;background:#0F1729;box-shadow:0 24px 48px -18px rgba(15,23,41,0.45),0 0 0 1px #2A3346 inset}
+.kh-dev img{display:block;width:100%;height:100%;border-radius:32.4px;object-fit:cover}
+.kh-tag{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;background:#fff;border-radius:16px;padding:8px 12px 8px 8px;font-size:13px;font-weight:600;box-shadow:0 10px 28px -10px rgba(15,23,41,0.3)}
+.kh-av{width:26px;height:26px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700;color:#fff;flex-shrink:0}
+.kh-sync{position:absolute;z-index:4;left:50%;top:46%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;background:#0F1729;color:#fff;border-radius:22px;padding:10px 16px;font-size:13.5px;font-weight:600;box-shadow:0 14px 30px -10px rgba(15,23,41,0.5);white-space:nowrap}
+.kh-sync i{width:7px;height:7px;border-radius:4px;background:#5BE0A0;box-shadow:0 0 8px #5BE0A0}
+.kh-sec{padding-top:110px;padding-bottom:110px}
+.kh-sec-h{display:flex;flex-direction:column;gap:14px;max-width:640px;margin-bottom:56px}
+.kh-h2{font-size:clamp(34px,4.4vw,52px);font-weight:700;letter-spacing:-0.035em;line-height:1.04}
+.kh-feats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.kh-feat{background:#fff;border-radius:28px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 1px 2px rgba(15,23,41,0.05)}
+.kh-feat h3{font-size:22px;font-weight:700;letter-spacing:-0.5px;line-height:1.15}
+.kh-feat p{font-size:15.5px;line-height:1.55;color:#5C6982}
+.kh-vis{background:#F1F4F9;border-radius:20px;padding:20px;margin-bottom:12px;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.kh-vis.center{align-items:center;text-align:center}
+.kh-vis-top{display:flex;justify-content:space-between;align-items:baseline}
+.kh-vis-top b{font-size:15px}
+.kh-vis-top span,.kh-vis-note{font-size:13px;color:#5C6982;font-weight:500}
+.kh-dots{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}
+.kh-dot{aspect-ratio:1;border-radius:50%;background:#DCE3EE}
+.kh-dot.done{background:#234C9B}
+.kh-dot.now{background:#2D9CDB;box-shadow:0 0 0 3px rgba(45,156,219,0.25)}
+.kh-row{display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:10px 12px;font-size:13.5px}
+.kh-row small{display:block;color:#939FB4;font-size:12px;margin-top:1px}
+.kh-lock{width:64px;height:64px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px -6px rgba(15,23,41,0.2)}
+.kh-chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
+.kh-chips span{font-size:12.5px;font-weight:600;color:#234C9B;background:#fff;padding:5px 10px;border-radius:12px}
+.kh-shots{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;padding:0 20px}
+.kh-shot{display:flex;flex-direction:column;align-items:center;gap:16px}
+.kh-shot span{font-size:14.5px;font-weight:600;color:#0F1729}
+.kh-shot small{font-size:13.5px;color:#5C6982;margin-top:-10px;max-width:220px;text-align:center}
+.kh-cta{background:#0F1729;color:#fff;border-radius:40px;padding:80px 32px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:22px;position:relative;overflow:hidden}
+.kh-cta::before{content:"";position:absolute;right:-180px;top:-220px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(45,156,219,0.35),rgba(45,156,219,0) 70%)}
+.kh-cta>*{position:relative}
+.kh-cta .kh-h2{color:#fff}
+.kh-cta .kh-lede{color:rgba(255,255,255,0.7);margin:0 auto}
+.kh-cta img{width:84px;height:84px;border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,0.4)}
+.kh-cta .kh-btn:disabled,.kh-cta .kh-btn:disabled:hover{background:rgba(255,255,255,0.16);opacity:1}
+.kh-foot{padding-top:48px;padding-bottom:56px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:14px;color:#939FB4}
+.kh-foot nav{display:flex;gap:24px;flex-wrap:wrap}
+.kh-foot nav a{color:#5C6982}.kh-foot nav a:hover{color:#0F1729}
+.privacy-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,41,0.55);align-items:center;justify-content:center;padding:5vh 5%;z-index:100}
+.privacy-overlay.open{display:flex}
+.privacy-modal{position:relative;width:min(640px,100%);height:min(80vh,760px);background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.35)}
+.privacy-modal iframe{width:100%;height:100%;border:none;display:block;background:#fff}
+.privacy-modal-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:none;border-radius:50%;background:rgba(15,23,41,0.08);color:#0F1729;font-size:1.1rem;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1}
+.privacy-modal-close:hover{background:rgba(15,23,41,0.16)}
+@media (max-width:900px){
+.kh-hB{grid-template-columns:minmax(0,1fr)}
+.kh-hB-stage{height:560px}
+.kh-feats{grid-template-columns:minmax(0,1fr)}
+.kh-navlinks a{display:none}
+.kh-sec{padding-top:80px;padding-bottom:80px}
+}
+@media (max-width:520px){
+.kh-wrap{padding-left:18px;padding-right:18px}
+}
+</style>
+</head>
+<body>
+<header class="kh-nav">
+  <div class="kh-wrap kh-nav-in">
+    <a class="kh-brand" href="kinhour-app.html"><img src="kinhour-icon.png" alt="">kinhour</a>
+    <nav class="kh-navlinks">
+      <a href="#features">Features</a>
+      <a href="#app">The app</a>
+      <button class="kh-btn sm" type="button" disabled>Coming soon</button>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="kh-hero kh-wrap">
+    <div class="kh-hB">
+      <div class="kh-hB-copy">
+        <span class="kh-eyebrow"><i></i>Coming soon to iPhone</span>
+        <h1 class="kh-h1">Everyone on the <em>same clock.</em></h1>
+        <p class="kh-lede">Kinhour turns the doses, feeds and walks you share into one live countdown, so whoever's on duty knows exactly what's next.</p>
+        <div class="kh-cta-col">
+          <button class="kh-btn" type="button" disabled>Coming soon to the App Store</button>
+          <span class="kh-fine">Free to try. No account needed.</span>
+        </div>
+      </div>
+      <div class="kh-hB-stage">
+        <div class="kh-hB-p1"><div class="kh-dev"><img src="kinhour-screen-hero-hamster.jpg" width="786" height="1704" alt="Kinhour on Dad's iPhone, counting down to Amoxicillin and feeding the hamster"></div></div>
+        <div class="kh-hB-p2"><div class="kh-dev"><img src="kinhour-screen-hero-physio.jpg" width="786" height="1704" alt="Kinhour on Grandma's iPhone, showing the same countdown plus a physio set"></div></div>
+        <div class="kh-tag" style="left:0;top:0"><span class="kh-av" style="background:#234C9B">D</span>Dad's iPhone</div>
+        <div class="kh-tag" style="right:0;top:46px"><span class="kh-av" style="background:#2D9CDB">G</span>Grandma's iPhone</div>
+        <div class="kh-sync"><i></i>Same countdown, live on both</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="kh-sec kh-wrap" id="features">
+    <div class="kh-sec-h">
+      <h2 class="kh-h2">Built for the things you can't forget.</h2>
+      <p class="kh-lede">Antibiotics for a sick kid. Feeds every three hours. The dog's evening pill. Kinhour keeps count, so nobody has to ask.</p>
+    </div>
+    <div class="kh-feats">
+      <div class="kh-feat">
+        <div class="kh-vis">
+          <div class="kh-vis-top"><b>Amoxicillin</b><span>3× daily · 7 days</span></div>
+          <div class="kh-dots">
+            <div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot done"></div>
+            <div class="kh-dot done"></div><div class="kh-dot done"></div><div class="kh-dot now"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div>
+            <div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div><div class="kh-dot"></div>
+          </div>
+          <span class="kh-vis-note">9 of 21 done · next at 2:00 PM</span>
+        </div>
+        <h3>Set it once, for the whole course.</h3>
+        <p>"Three times a day for seven days." Kinhour counts every dose, feed or walk and stops when the course is finished.</p>
+      </div>
+      <div class="kh-feat">
+        <div class="kh-vis">
+          <div class="kh-row"><span class="kh-av" style="background:#1F9D6B">S</span><div><b>Sam</b> gave Amoxicillin<small>2:01 PM · on time</small></div></div>
+          <div class="kh-row"><span class="kh-av" style="background:#2D9CDB">G</span><div><b>Grandma</b> fed Biscuit<small>12:30 PM</small></div></div>
+          <div class="kh-row"><span class="kh-av" style="background:#234C9B">D</span><div><b>You</b> gave Amoxicillin<small>8:04 AM</small></div></div>
+        </div>
+        <h3>Hand off without a group chat.</h3>
+        <p>Share any schedule with a partner, sitter or parent. When one person marks it done, everyone's countdown moves on.</p>
+      </div>
+      <div class="kh-feat">
+        <div class="kh-vis center">
+          <div class="kh-lock">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#234C9B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5"></rect><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"></path></svg>
+          </div>
+          <div class="kh-chips"><span>No sign-up</span><span>No ads</span><span>No tracking</span><span>Your iCloud</span></div>
+        </div>
+        <h3>No account. Nothing to track.</h3>
+        <p>Your schedule stays on your devices and syncs through your own iCloud. We never see it, and there's nothing to sign up for. <a href="privacy/kinhour.html" class="privacy-link">Read the privacy policy</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="kh-sec" id="app" style="padding-top:20px">
+    <div class="kh-wrap">
+      <div class="kh-sec-h">
+        <h2 class="kh-h2">Calm by design.</h2>
+        <p class="kh-lede">One screen tells you what's next. Everything else stays out of the way.</p>
+      </div>
+    </div>
+    <div class="kh-shots">
+      <div class="kh-shot">
+        <div class="kh-dev"><img src="kinhour-screen-event.jpg" width="786" height="1704" alt="Kinhour event screen with progress, upcoming times and who did what" loading="lazy"></div>
+        <span>Every course, counted</span>
+        <small>Progress, upcoming times and who did what.</small>
+      </div>
+      <div class="kh-shot">
+        <div class="kh-dev"><img src="kinhour-screen-timer.jpg" width="786" height="1704" alt="Kinhour timer screen" loading="lazy"></div>
+        <span>Quick timers too</span>
+        <small>Pasta, laundry, naps: start one in a tap.</small>
+      </div>
+      <div class="kh-shot">
+        <div class="kh-dev"><img src="kinhour-screen-new.jpg" width="786" height="1704" alt="Kinhour new event screen" loading="lazy"></div>
+        <span>Set up in seconds</span>
+        <small>Pick how often and for how long.</small>
+      </div>
+      <div class="kh-shot">
+        <div class="kh-dev"><img src="kinhour-screen-past.jpg" width="786" height="1704" alt="Kinhour history screen" loading="lazy"></div>
+        <span>A shared history</span>
+        <small>See what was done, and when.</small>
+      </div>
+    </div>
+  </section>
+
+  <section class="kh-wrap" style="padding-bottom:20px">
+    <div class="kh-cta">
+      <img src="kinhour-icon.png" alt="Kinhour app icon">
+      <h2 class="kh-h2">Get on the same clock.</h2>
+      <p class="kh-lede">Kinhour is coming soon to iPhone. Free to try, no account needed.</p>
+      <button class="kh-btn" type="button" disabled>Coming soon to the App Store</button>
+    </div>
+  </section>
+</main>
+<footer class="kh-wrap kh-foot">
+  <span>&copy; 2026 hurutungo LLC</span>
+  <nav><a href="index.html#apps">More from hurutungo</a><a href="privacy/kinhour.html" class="privacy-link">Privacy Policy</a><a href="mailto:hello@hurutungo.com">hello@hurutungo.com</a></nav>
+</footer>
+<div class="privacy-overlay" id="privacyOverlay">
+  <div class="privacy-modal">
+    <button class="privacy-modal-close" id="privacyClose" aria-label="Close privacy policy">&times;</button>
+    <iframe id="privacyFrame" title="Privacy Policy"></iframe>
+  </div>
+</div>
+<script>
+(function () {
+  var links = document.querySelectorAll('.privacy-link');
+  var overlay = document.getElementById('privacyOverlay');
+  var frame = document.getElementById('privacyFrame');
+  var closeBtn = document.getElementById('privacyClose');
+
+  function open(e) {
+    e.preventDefault();
+    if (!frame.src) frame.src = e.currentTarget.getAttribute('href');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  links.forEach(function (link) { link.addEventListener('click', open); });
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') close();
+  });
+})();
+</script>
+</body>
+</html>
