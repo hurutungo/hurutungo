@@ -232,11 +232,15 @@ h1,h2,h3,p{margin:0;text-wrap:pretty}
   var frame = document.getElementById('privacyFrame');
   var closeBtn = document.getElementById('privacyClose');
 
-  function open(e) {
-    e.preventDefault();
-    if (!frame.src) frame.src = e.currentTarget.getAttribute('href');
+  function show(href) {
+    if (!frame.src) frame.src = href;
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
+  }
+
+  function open(e) {
+    e.preventDefault();
+    show(e.currentTarget.getAttribute('href'));
   }
 
   function close() {
@@ -252,6 +256,8 @@ h1,h2,h3,p{margin:0;text-wrap:pretty}
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') close();
   });
+
+  if (window.location.hash === '#privacypolicy') show(links[0].getAttribute('href'));
 })();
 </script>
 </body>
