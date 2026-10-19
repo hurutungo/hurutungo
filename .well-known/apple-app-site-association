@@ -14,6 +14,11 @@
             "/": "/anime",
             "?": { "s": "?*" },
             "comment": "Same link without the trailing slash"
+          },
+          {
+            "/": "/anime-fillers/l",
+            "?": { "v": "?*" },
+            "comment": "Shared list links open in the app"
           }
         ]
       }
