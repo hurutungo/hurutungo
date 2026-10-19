@@ -34,4 +34,13 @@ jobs:
               print('::error::hurutungo.AnimeFillers not found in appIDs:', app_ids)
               sys.exit(1)
           print('OK — appIDs:', app_ids)
+          paths = [
+              component.get('/')
+              for detail in data['applinks']['details']
+              for component in detail.get('components', [])
+          ]
+          if '/anime-fillers/l' not in paths:
+              print('::error::/anime-fillers/l not claimed in components:', paths)
+              sys.exit(1)
+          print('OK — components:', paths)
           "
