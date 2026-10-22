@@ -38,6 +38,12 @@ h1,h2,h3,p{margin:0;text-wrap:pretty}
 .kh-navlinks a{color:#5C6982}.kh-navlinks a:hover{color:#0F1729}
 .kh-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:24px;border:0;background:#234C9B;color:#fff;font-size:15px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
 .kh-btn:hover{background:#1B3E82}
+.store{display:inline-flex;align-items:center;gap:12px;padding:12px 24px 12px 18px;border-radius:14px;background:#000;color:#fff;border:1.5px solid rgba(255,255,255,.35);text-decoration:none;font-family:inherit}
+.store svg{width:30px;height:30px;fill:#fff;flex:none}
+.store b{display:flex;flex-direction:column;line-height:1.05;font-weight:400;text-align:left}
+.store b i{font-style:normal;font-size:12px}
+.store b span{font-size:24px;font-weight:600;letter-spacing:-.4px}
+.store.soon{opacity:.6;cursor:default}
 .kh-btn.sm{height:38px;padding:0 16px;font-size:14px}
 .kh-btn:disabled,.kh-btn:disabled:hover{cursor:default;background:#234C9B;opacity:.6}
 .kh-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:#234C9B;background:#E6EEFA;padding:6px 12px;border-radius:20px}
@@ -133,7 +139,7 @@ h1,h2,h3,p{margin:0;text-wrap:pretty}
         <h1 class="kh-h1">Everyone on the <em>same clock.</em></h1>
         <p class="kh-lede">Kinhour turns the doses, feeds and walks you share into one live countdown, so whoever's on duty knows exactly what's next.</p>
         <div class="kh-cta-col">
-          <button class="kh-btn" type="button" disabled>Coming soon to the App Store</button>
+          <span class="store soon" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"></path></svg><b><i>Coming soon on the</i><span>App Store</span></b></span>
           <span class="kh-fine">Free to try. No account needed.</span>
         </div>
       </div>
@@ -224,7 +230,7 @@ h1,h2,h3,p{margin:0;text-wrap:pretty}
       <img src="kinhour-icon.png" alt="Kinhour app icon">
       <h2 class="kh-h2">Get on the same clock.</h2>
       <p class="kh-lede">Kinhour is coming soon to iPhone. Free to try, no account needed.</p>
-      <button class="kh-btn" type="button" disabled>Coming soon to the App Store</button>
+      <span class="store soon" aria-disabled="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.03-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.2 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.71.71 2.88.69 1.19-.02 1.94-1.08 2.67-2.14.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54zM14.18 6.13c.61-.74 1.02-1.76.91-2.78-.88.04-1.94.59-2.57 1.32-.56.65-1.06 1.69-.93 2.69.98.08 1.98-.5 2.59-1.23z"></path></svg><b><i>Coming soon on the</i><span>App Store</span></b></span>
     </div>
   </section>
 </main>
